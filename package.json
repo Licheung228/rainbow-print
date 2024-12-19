@@ -1,0 +1,29 @@
+{
+  "name": "rainbow-print",
+  "version": "0.0.1-beta",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./color": {
+      "types": "./types/console.log.d.ts"
+    }
+  },
+  "description": "🌈 ranbow console.log",
+  "scripts": {
+    "build": "unbuild",
+    "test": "vitest"
+  },
+  "keywords": [
+    "console.log",
+    "colorful",
+    "rainbow",
+    "print",
+    "rainbow-print",
+    "colorful console.log"
+  ],
+  "author": "lik <licheung228@outlook.com>",
+  "license": "MIT"
+}
