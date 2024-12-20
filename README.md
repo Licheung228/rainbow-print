@@ -4,13 +4,13 @@
 
 增强 `console.log`
 
-## 概述
+## 功能
 
 rainbowPrint 由 **打印器** 和 **样式器** 组成
 
 这两者都会被封装在 `rainbowPrint` 中
 
-### 概念
+### 概述
 
 **打印器**
 
