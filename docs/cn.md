@@ -35,7 +35,7 @@ rainbowPrint.log(rainbowPrint.green('green here >>>'), 'some thing here')
 ```
 
 效果:
-![alt text](docs/imgs/image_1.png)
+![alt text](imgs/image_1.png)
 
 **解构**
 
@@ -49,7 +49,7 @@ log(red('red here >>>'), 'some thing here')
 ```
 
 效果:
-![alt text](docs/imgs/image_2.png)
+![alt text](imgs/image_2.png)
 
 **自定义样式**
 
@@ -72,7 +72,7 @@ log(myRainbowPrint.skyblue('mark >>>'), 'some thing here')
 ```
 
 效果:
-![alt text](docs/imgs/image_3.png)
+![alt text](imgs/image_3.png)
 
 ## 类型
 
@@ -112,7 +112,7 @@ log(
 ```
 
 效果:
-![alt text](docs/imgs/image_4.png)
+![alt text](imgs/image_4.png)
 
 # console.color
 
