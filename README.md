@@ -2,6 +2,8 @@
 
 # Rainbow🌈Print
 
+[English](./) | [中文](https://github.com/Licheung228/rainbow-print/blob/main/docs/cn.md)
+
 🌈 Enhanced `console.log`⌨️
 
 ## Features
