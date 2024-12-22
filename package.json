@@ -1,6 +1,6 @@
 {
   "name": "rainbow-print",
-  "version": "0.0.1-beta",
+  "version": "0.0.1",
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
@@ -14,7 +14,8 @@
   "description": "🌈 ranbow console.log",
   "scripts": {
     "build": "unbuild",
-    "test": "vitest"
+    "test": "vitest",
+    "prepublishOnly": "nrm use npm && pnpm build"
   },
   "keywords": [
     "console.log",
