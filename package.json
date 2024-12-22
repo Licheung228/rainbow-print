@@ -17,6 +17,12 @@
     "test": "vitest",
     "prepublishOnly": "nrm use npm && pnpm build"
   },
+  "files": [
+    "dist",
+    "types",
+    "README.md",
+    "LICENSE"
+  ],
   "keywords": [
     "console.log",
     "colorful",
