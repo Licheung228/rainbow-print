@@ -3,7 +3,7 @@ import type { StringSubsitution, SymbolType } from './constant'
 
 export interface Item {
   [SymbolType]: 'string' | 'other'
-  subsitution: StringSubsitution
+  sub: StringSubsitution
   value: any
 }
 interface FirefoxAvaliableCSSStyleDeclaration {

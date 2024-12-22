@@ -26,7 +26,7 @@ rainbowPrint 由 **打印器** 和 **样式器** 组成
 
 ## 使用
 
-**基本使用**
+### 基本使用
 
 ```js
 import rainbowPrint from 'rainbow-print'
@@ -35,9 +35,9 @@ rainbowPrint.log(rainbowPrint.green('green here >>>'), 'some thing here')
 ```
 
 效果:
-![alt text](imgs/image_1.png)
+![alt github picture](imgs/image_1.png)
 
-**解构**
+### 解构
 
 你也可以将功能都解构出来
 
@@ -49,11 +49,13 @@ log(red('red here >>>'), 'some thing here')
 ```
 
 效果:
-![alt text](imgs/image_2.png)
+![alt github picture](imgs/image_2.png)
 
-**自定义样式**
+### 自定义样式
 
 或者你想要自定义一些自己的样式。可以使用 `addStyles` / `addStyle` 来实现
+
+当你从任意实例添加新的样式时，都会继承之前的样式
 
 ```js
 import rainbowPrint from 'rainbow-print'
@@ -72,7 +74,32 @@ log(myRainbowPrint.skyblue('mark >>>'), 'some thing here')
 ```
 
 效果:
-![alt text](imgs/image_3.png)
+![alt github picture](imgs/image_3.png)
+
+### 嵌套
+
+允许[样式器](#概述)的嵌套结构. 例如:
+
+```ts
+import rainbowPrint from 'rainbow-print'
+
+console.color = rainbowPrint.log
+
+const rainbowPrint3 = rainbowPrint.addStyles({
+  blod: {
+    'font-weight': 'bold',
+  },
+  bgPink: {
+    'background-color': 'pink',
+  },
+})
+const { blod, bgPink, green } = rainbowPrint3
+console.color(blod(green('here is blod green')))
+console.color(bgPink(blod(green('here is bg-pink color-green font-bold'))))
+```
+
+效果:
+![alt github picture](imgs/image_5.png)
 
 ## 类型
 
@@ -112,7 +139,7 @@ log(
 ```
 
 效果:
-![alt text](imgs/image_4.png)
+![alt github picture](imgs/image_4.png)
 
 # console.color
 

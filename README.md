@@ -1,16 +1,12 @@
-> Translate powered by ChatGpt
+> this doc tanslate by chatgpt
 
 # Rainbow🌈Print
 
-[中文](https://github.com/Licheung228/rainbow-print/blob/main/docs/cn.md) | [English](./)
-
-🌈 rainbow console.log⌨️
-
-Enhanced `console.log`
+🌈 Enhanced `console.log`⌨️
 
 ## Features
 
-`rainbowPrint` consists of two components: **Printer** and **Styler**.
+`rainbowPrint` consists of two components: the **Printer** and the **Styler**.
 
 Both components are encapsulated within `rainbowPrint`.
 
@@ -22,15 +18,15 @@ Both components are encapsulated within `rainbowPrint`.
 
 **Styler**
 
-`rainbowPrint[styleName]` is used for styling, and `rainbowPrint` natively provides some styles. You can also extend styles via `rainbowPrint.addStyle` and `rainbowPrint.addStyles`.
+`rainbowPrint[styleName]` is used for style declarations. `rainbowPrint` comes with several built-in styles. You can also extend it using `rainbowPrint.addStyle` or `rainbowPrint.addStyles`.
 
 ### console.color
 
-You can globally register `rainbowPrint` to `console.color` in your project's entry file for more convenient usage. `rainbowPrint` also provides good TypeScript type declaration support. [See more](#consolecolor-1)
+You can globally register `console.color` in the entry file of your project for easier use. `rainbow-print` also provides excellent TypeScript type declaration support. [More details](#consolecolor-1).
 
 ## Usage
 
-**Basic Usage**
+### Basic Usage
 
 ```js
 import rainbowPrint from 'rainbow-print'
@@ -39,11 +35,11 @@ rainbowPrint.log(rainbowPrint.green('green here >>>'), 'some thing here')
 ```
 
 Effect:
-![alt text](docs/imgs/image_1.png)
+![alt github picture](docs/imgs/image_1.png)
 
-**Destructuring**
+### Destructuring
 
-You can also destructure all functionalities:
+You can also destructure the functions:
 
 ```js
 import rainbowPrint from 'rainbow-print'
@@ -53,11 +49,13 @@ log(red('red here >>>'), 'some thing here')
 ```
 
 Effect:
-![alt text](docs/imgs/image_2.png)
+![alt github picture](docs/imgs/image_2.png)
 
-**Custom Styles**
+### Custom Styles
 
-If you want to create your own styles, you can use `addStyles` or `addStyle` to achieve this:
+If you want to create custom styles, you can use `addStyles` or `addStyle` to achieve this.
+
+When you add new styles from any instance, they will inherit the previous styles.
 
 ```js
 import rainbowPrint from 'rainbow-print'
@@ -76,13 +74,38 @@ log(myRainbowPrint.skyblue('mark >>>'), 'some thing here')
 ```
 
 Effect:
-![alt text](docs/imgs/image_3.png)
+![alt github picture](docs/imgs/image_3.png)
 
-## TypeScript Support
+### Nesting
 
-`rainbowPrint` is written in TypeScript and has good code hinting. The styles you add will be suggested.
+Nesting of [stylers](#overview) is allowed. For example:
 
-**When you add new styles to any instance, they will inherit the previous styles.**
+```ts
+import rainbowPrint from 'rainbow-print'
+
+console.color = rainbowPrint.log
+
+const rainbowPrint3 = rainbowPrint.addStyles({
+  bold: {
+    'font-weight': 'bold',
+  },
+  bgPink: {
+    'background-color': 'pink',
+  },
+})
+const { bold, bgPink, green } = rainbowPrint3
+console.color(bold(green('here is bold green')))
+console.color(bgPink(bold(green('here is bg-pink color-green font-bold'))))
+```
+
+Effect:
+![alt github picture](docs/imgs/image_5.png)
+
+## TypeScript Types
+
+`rainbowPrint` is written in TypeScript and offers good code suggestions. The styles you add will also be suggested.
+
+**When you add new styles from any instance, they will inherit the previous styles.**
 
 ```ts
 import rainbowPrint from 'rainbow-print'
@@ -99,7 +122,7 @@ const myRainbowPrint = rainbowPrint.addStyle('skyblue', {
 })
 log(myRainbowPrint.skyblue('mark >>>'), 'some thing here')
 
-// Add multiple styles
+// Custom Multiple Styles
 const myRainbowPrint2 = myRainbowPrint.addStyles({
   orange: {
     color: 'orange',
@@ -112,16 +135,16 @@ log(
   myRainbowPrint2.orange('orange >>>'),
   'some thing here',
   myRainbowPrint2.blue('<<< blue'),
-  myRainbowPrint2.skyblue('from myRainbowPrint'), // Inherits previous styles
+  myRainbowPrint2.skyblue('from myRainbowPrint'), // Will inherit the previous style
 )
 ```
 
 Effect:
-![alt text](docs/imgs/image_4.png)
+![alt github picture](docs/imgs/image_4.png)
 
 # console.color
 
-You can globally register `rainbowPrint` to `console.color` in your project's entry file for more convenient usage. `rainbowPrint` also provides good TypeScript type declaration support.
+You can globally register `console.color` in the entry file of your project for easier use. `rainbow-print` also provides excellent TypeScript type declaration support.
 
 ```ts
 import rainbowPrint from 'rainbow-print'
@@ -129,11 +152,11 @@ import rainbowPrint from 'rainbow-print'
 console.color = rainbowPrint.log
 ```
 
-## Type Declarations
+## Type Declaration
 
-Create a new type declaration file (make sure it's included in your `tsconfig`) and import `rainbow-print/color` in the type declaration file, for example:
+You need to create a type declaration file (ensure it’s included in your tsconfig). In the declaration file, import `rainbow-print/color` as follows:
 
-**global.d.ts**
+global.d.ts
 
 ```ts
 /// <reference types="rainbow-print/color" />

@@ -3,7 +3,7 @@
 import {
   craeteRenderArr,
   createRenderText,
-  generatorStyleFn,
+  generateStyleFn,
 } from './creators'
 import type { OptionCSSStyleDeclaration } from './types'
 
@@ -26,16 +26,16 @@ class RainbowPrint {
   public addStyle<P extends string = string>(
     name: P,
     style: OptionCSSStyleDeclaration,
-  ): this & Record<P, ReturnType<typeof generatorStyleFn>> {
+  ): this & Record<P, ReturnType<typeof generateStyleFn>> {
     const instance = this.getInstance() as any
     if (Object.hasOwn(instance, name)) delete instance[name]
-    instance[name] = generatorStyleFn(style)
+    instance[name] = generateStyleFn(style)
     return instance
   }
 
   public addStyles<P extends string = string>(
     styles: Record<P, OptionCSSStyleDeclaration>,
-  ): this & Record<P, ReturnType<typeof generatorStyleFn>> {
+  ): this & Record<P, ReturnType<typeof generateStyleFn>> {
     const instance = this.getInstance() as any
     for (const [name, style] of Object.entries(styles)) {
       instance.addStyle(name, style)

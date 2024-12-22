@@ -14,11 +14,11 @@ export function createColorString(
   style: OptionCSSStyleDeclaration,
   text: string,
 ): Item {
-  const textStyle = createStyle(style)
+  // const textStyle = createStyle(style)
   const i = Object.create(null) as Item
-  i.subsitution = StringSubsitution['string']
+  i.sub = StringSubsitution['string']
   // value 就是 子串后的 style + text
-  i.value = [textStyle, text]
+  i.value = [style, text]
   i[SymbolType] = 'string'
 
   return i
@@ -38,7 +38,7 @@ export function createRenderItem(arg: any): Item {
       break
     default:
       i[SymbolType] = 'other'
-      i.subsitution = StringSubsitution['other']
+      i.sub = StringSubsitution['other']
       break
   }
 
@@ -58,13 +58,20 @@ export function transString(string: string): string {
   return string.replace(/%/g, '%%')
 }
 
+function splitStyleAndText(value: any[]) {
+  const [style, ...text] = value
+  return { style, text }
+}
+
 export function createRenderText(itemArr: Item[]): any[] {
   const re: any[] = []
   const subsitutionArr = []
   for (const i of itemArr) {
-    subsitutionArr.push(i.subsitution)
+    subsitutionArr.push(i.sub)
     if (i[SymbolType] === 'string') {
-      re.push(...i.value.map(transString))
+      const { style, text } = splitStyleAndText(i.value)
+      re.push(createStyle(style))
+      re.push(...text.map(transString))
     } else {
       re.push(i.value)
     }
@@ -73,13 +80,36 @@ export function createRenderText(itemArr: Item[]): any[] {
   return re
 }
 
-export function generatorStyleFn(style: OptionCSSStyleDeclaration) {
+export function generateStyleFn(style: OptionCSSStyleDeclaration) {
   /*
     TODO optimize if params is a Item, should assign the style be like:
     const bgGreen = generatorStyleFn({ 'background-color': 'green' })
     const green = generatorStyleFn({ color: 'green' })
-    //should be able to use like:
+    // should be able to use like:
     bgGreen(green('here is a string'))
   */
-  return (...args: string[]) => createColorString(style, args.join(' '))
+  const generateStyle = (...args: Array<string | Item>): Item => {
+    const content: string[] = []
+    args.forEach((i) => {
+      if (typeof i === 'string') {
+        content.push(i as string)
+      } else if (i[SymbolType] === 'string') {
+        const { style: iStyle, text } = splitStyleAndText(i.value)
+        /*
+          merge style, the main style should be out of this function. be like:
+          const bgGreen = generatorStyleFn({ 'background-color': 'green', folor: 'red' })
+          const green = generatorStyleFn({ color: 'green' })
+          
+          log(bgGreen(green('here is a string'))
+          //⬆️now, the color should be red
+        */
+        style = Object.assign(iStyle, style)
+        content.push(...text.map(transString))
+      }
+    })
+
+    return createColorString(style, content.join(' '))
+  }
+
+  return generateStyle
 }
