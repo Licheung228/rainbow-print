@@ -35,7 +35,7 @@ rainbowPrint.log(rainbowPrint.green('green here >>>'), 'some thing here')
 ```
 
 效果:
-![alt github picture](imgs/image_1.png)
+![alt github picture](http://cdn.licuii.xyz/img/image_1.png)
 
 ### 解构
 
@@ -49,7 +49,7 @@ log(red('red here >>>'), 'some thing here')
 ```
 
 效果:
-![alt github picture](imgs/image_2.png)
+![alt github picture](http://cdn.licuii.xyz/img/image_2.png)
 
 ### 自定义样式
 
@@ -74,7 +74,7 @@ log(myRainbowPrint.skyblue('mark >>>'), 'some thing here')
 ```
 
 效果:
-![alt github picture](imgs/image_3.png)
+![alt github picture](http://cdn.licuii.xyz/img/image_3.png)
 
 ### 嵌套
 
@@ -99,7 +99,7 @@ console.color(bgPink(blod(green('here is bg-pink color-green font-bold'))))
 ```
 
 效果:
-![alt github picture](imgs/image_5.png)
+![alt github picture](http://cdn.licuii.xyz/img/image_5.png)
 
 ## 类型
 
@@ -139,7 +139,7 @@ log(
 ```
 
 效果:
-![alt github picture](imgs/image_4.png)
+![alt github picture](http://cdn.licuii.xyz/img/image_4.png)
 
 # console.color
 
