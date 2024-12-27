@@ -71,7 +71,7 @@ export function createRenderItem(arg: any): Item {
 export function craeteRenderArr(...args: any[]): Item[] {
   const arr: Item[] = []
   args.forEach((i) => {
-    arr.push(i[SymbolType] ? i : createRenderItem(i))
+    arr.push(i?.[SymbolType] ? i : createRenderItem(i))
   })
   return arr
 }
