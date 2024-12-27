@@ -2,7 +2,7 @@
 
 # Rainbow🌈Print
 
-[English](./) | [中文](https://github.com/Licheung228/rainbow-print/blob/main/docs/cn.md)
+[English](./) | [中文](https://juejin.cn/post/7453021856779272227)
 
 🌈 Enhanced `console.log`⌨️
 
