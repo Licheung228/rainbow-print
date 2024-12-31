@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { StringSubsitution, SymbolType } from './constant'
-import type { Item, OptionCSSStyleDeclaration } from './types'
+import type { PrintItem, OptionCSSStyleDeclaration } from './types'
 
 /**
  * create a style string
@@ -22,16 +22,16 @@ export function createStyle(style: OptionCSSStyleDeclaration): string {
  * create a color string
  * @param {OptionCSSStyleDeclaration} style style of the string
  * @param {string} text content of the string
- * @returns {Item} a Item object
- * @returns {Item.sub} a string that can be used in `console.log` as a substitution. must be `%c%s`
- * @returns {Item.value} a array that contains style and text. the first element is style, the second is text ( although text maybe multiple strings, but it will be merged to one string and accept by createColorString function)
+ * @returns {PrintItem} a PrintItem object
+ * @returns {PrintItem.sub} a string that can be used in `console.log` as a substitution. must be `%c%s`
+ * @returns {PrintItem.value} a array that contains style and text. the first element is style, the second is text ( although text maybe multiple strings, but it will be merged to one string and accept by createColorString function)
  */
 export function createColorString(
   style: OptionCSSStyleDeclaration,
   text: string,
-): Item {
+): PrintItem {
   // const textStyle = createStyle(style)
-  const i = Object.create(null) as Item
+  const i = Object.create(null) as PrintItem
   i.sub = StringSubsitution['string']
   // value 就是 子串后的 style + text
   i.value = [style, text]
@@ -41,14 +41,14 @@ export function createColorString(
 }
 
 /**
- * create a Item object
- * @param {any} arg value of the Item
- * @returns {Item} a Item object
- * @returns {Item.value} value of the Item
- * @returns {Item.sub} a string that can be used in `console.log` as a substitution. must be `%o`
+ * create a PrintItem object
+ * @param {any} arg value of the PrintItem
+ * @returns {PrintItem} a PrintItem object
+ * @returns {PrintItem.value} value of the PrintItem
+ * @returns {PrintItem.sub} a string that can be used in `console.log` as a substitution. must be `%o`
  */
-export function createRenderItem(arg: any): Item {
-  let i = Object.create(null) as Item
+export function createRenderPrintItem(arg: any): PrintItem {
+  let i = Object.create(null) as PrintItem
   i.value = arg
   switch (typeof arg) {
     /*
@@ -68,10 +68,10 @@ export function createRenderItem(arg: any): Item {
   return i
 }
 
-export function craeteRenderArr(...args: any[]): Item[] {
-  const arr: Item[] = []
+export function craeteRenderArr(...args: any[]): PrintItem[] {
+  const arr: PrintItem[] = []
   args.forEach((i) => {
-    arr.push(i?.[SymbolType] ? i : createRenderItem(i))
+    arr.push(i?.[SymbolType] ? i : createRenderPrintItem(i))
   })
   return arr
 }
@@ -94,10 +94,10 @@ function splitStyleAndText(value: any[]) {
   return { style, text }
 }
 
-export function createRenderText(itemArr: Item[]): any[] {
+export function createRenderText(PrintItemArr: PrintItem[]): any[] {
   const re: any[] = []
   const subsitutionArr = []
-  for (const i of itemArr) {
+  for (const i of PrintItemArr) {
     subsitutionArr.push(i.sub)
     if (i[SymbolType] === 'string') {
       const { style, text } = splitStyleAndText(i.value)
@@ -113,18 +113,24 @@ export function createRenderText(itemArr: Item[]): any[] {
 
 export function generateStyleFn(style: OptionCSSStyleDeclaration) {
   /*
-    TODO optimize if params is a Item, should assign the style be like:
+    TODO optimize if params is a PrintItem, should assign the style be like:
     - status: complete [✅ - 2024-12-22]
     const bgGreen = generatorStyleFn({ 'background-color': 'green' })
     const green = generatorStyleFn({ color: 'green' })
     // should be able to use like:
     bgGreen(green('here is a string'))
   */
-  const generateStyle = (...args: Array<string | Item>): Item => {
+
+  const generateStyle = (
+    ...args: Array<string | PrintItem>
+  ): PrintItem => {
     const content: string[] = []
+    // prevent style be override ( pollution )
+    let _style = { ...style }
+
     args.forEach((i) => {
       if (typeof i === 'string') {
-        content.push(i as string)
+        content.push(i)
       } else if (i[SymbolType] === 'string') {
         const { style: iStyle, text } = splitStyleAndText(i.value)
         /*
@@ -135,11 +141,11 @@ export function generateStyleFn(style: OptionCSSStyleDeclaration) {
           log(bgGreen(green('here is a string'))
           //⬆️now, the color should be red
         */
-        style = Object.assign(iStyle, style)
+        _style = { ...iStyle, ...style }
         /*
           Todo"
           this way is not good,
-          if multiple Item have different style, the style will be override by the last one
+          if multiple PrintItem have different style, the style will be override by the last one
           be like : 
             console.color(
               bgPink(green('here is bg-pink green'), blod('and font-bold')),
@@ -147,13 +153,18 @@ export function generateStyleFn(style: OptionCSSStyleDeclaration) {
 
           the font-weight of green('here is bg-pink green') maybe shouldn't be bold, but with this way, it will be
 
-          maybe I can change return value. now is a Item, maybe can be a array should be sign.
+          maybe I can change return value. now is a PrintItem, maybe can be a array should be sign.
         */
+        /*
+          2024-12-31 maybe should refactor...
+       */
         content.push(...text.map(transString))
+      } else {
+        throw new Error('not a string or PrintItem')
       }
     })
 
-    return createColorString(style, content.join(' '))
+    return createColorString(_style, content.join(' '))
   }
 
   return generateStyle

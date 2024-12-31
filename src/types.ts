@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { StringSubsitution, SymbolType } from './constant'
 
-export interface Item {
+export interface PrintItem {
   [SymbolType]: 'string' | 'other'
   sub: StringSubsitution
   value: any

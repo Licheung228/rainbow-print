@@ -28,7 +28,10 @@ class RainbowPrint {
     style: OptionCSSStyleDeclaration,
   ): this & Record<P, ReturnType<typeof generateStyleFn>> {
     const instance = this.getInstance() as any
-    if (Object.hasOwn(instance, name)) delete instance[name]
+    if (Object.hasOwn(instance, name)) {
+      instance[name] = null
+      delete instance[name]
+    }
     instance[name] = generateStyleFn(style)
     return instance
   }
