@@ -89,11 +89,28 @@ export function transString(string: string): string {
   return string.replace(/%/g, '%%')
 }
 
-function splitStyleAndText(value: any[]) {
-  const [style, ...text] = value
+/**
+ * split style and text
+ * @param {any[]} value
+ * @returns {style: string, text: string[]}
+ */
+export function splitStyleAndText(value: any[]): {
+  style: OptionCSSStyleDeclaration
+  text: string[]
+} {
+  const [style, ...text] = value as [
+    OptionCSSStyleDeclaration,
+    ...string[],
+  ]
   return { style, text }
 }
 
+/**
+ * create render text
+ * @param {PrintItem[]}
+ * @returns {any[]}
+ * @description trans PrintItems to console.log item
+ */
 export function createRenderText(PrintItemArr: PrintItem[]): any[] {
   const re: any[] = []
   const subsitutionArr = []
@@ -111,6 +128,12 @@ export function createRenderText(PrintItemArr: PrintItem[]): any[] {
   return re
 }
 
+/**
+ * generate style function
+ * @param {OptionCSSStyleDeclaration}
+ * @returns {Function}
+ * @description generate a function to create a print item generator
+ */
 export function generateStyleFn(style: OptionCSSStyleDeclaration) {
   /*
     TODO optimize if params is a PrintItem, should assign the style be like:
