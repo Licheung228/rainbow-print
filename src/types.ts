@@ -111,6 +111,5 @@ interface FirefoxAvaliableCSSStyleDeclaration {
   // Writing Mode
   'writing-mode'?: string
 }
-
 export type OptionCSSStyleDeclaration =
   Partial<FirefoxAvaliableCSSStyleDeclaration>

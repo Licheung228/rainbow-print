@@ -63,3 +63,4 @@ const rainbowPrint = new RainbowPrint().addStyles({
 })
 
 export default rainbowPrint
+export type * from './types'
