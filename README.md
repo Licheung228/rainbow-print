@@ -37,7 +37,7 @@ rainbowPrint.log(rainbowPrint.green('green here >>>'), 'some thing here')
 ```
 
 Effect:
-![alt github picture](http://cdn.licuii.xyz/img/image_1.png)
+![alt github picture](http://cdn.licuii.fun/img/image_1.png)
 
 ### Destructuring
 
@@ -51,7 +51,7 @@ log(red('red here >>>'), 'some thing here')
 ```
 
 Effect:
-![alt github picture](http://cdn.licuii.xyz/img/image_2.png)
+![alt github picture](http://cdn.licuii.fun/img/image_2.png)
 
 ### Custom Styles
 
@@ -76,7 +76,7 @@ log(myRainbowPrint.skyblue('mark >>>'), 'some thing here')
 ```
 
 Effect:
-![alt github picture](http://cdn.licuii.xyz/img/image_3.png)
+![alt github picture](http://cdn.licuii.fun/img/image_3.png)
 
 ### Nesting
 
@@ -101,7 +101,7 @@ console.color(bgPink(bold(green('here is bg-pink color-green font-bold'))))
 ```
 
 Effect:
-![alt github picture](http://cdn.licuii.xyz/img/image_5.png)
+![alt github picture](http://cdn.licuii.fun/img/image_5.png)
 
 ## TypeScript Types
 
@@ -142,7 +142,7 @@ log(
 ```
 
 Effect:
-![alt github picture](http://cdn.licuii.xyz/img/image_4.png)
+![alt github picture](http://cdn.licuii.fun/img/image_4.png)
 
 # console.color
 
